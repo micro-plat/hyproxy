@@ -14,6 +14,9 @@ func skip(conf *conf.MetadataConf, ctx *goproxy.ProxyCtx, header map[string][]st
 	if getSkip(ctx) {
 		return true
 	}
+	if len(Hosts)==1 && Hosts[0]=="*"{
+		return false
+	}
 	//服务名过滤
 	chost := fmt.Sprintf("%s://%s%s", ctx.Req.URL.Scheme, ctx.Req.URL.Host, ctx.Req.URL.Path)
 	for _, h := range Hosts {
